@@ -16,21 +16,21 @@ public class Controller {
 
     @RequestMapping("/")
     public String index() throws MalformedURLException {
-        String value1 = "",value2 = "" ;
+        String temperature = "",timestamp = "" ;
         URL u = new URL("https://mdna.azurewebsites.net/api/GetDataFromTableStorage?limitRows=1&orderBy=desc");
         try (InputStream in = u.openStream()) {
             Object obj = new String(in.readAllBytes());
-            String name = obj.toString();
-            JSONArray jsonArr = new JSONArray(name);
+            String strObj = obj.toString();
+            JSONArray jsonArr = new JSONArray(strObj);
 
 
             for (int i = 0; i < jsonArr.length(); ++i) {
                 JSONObject rec = jsonArr.getJSONObject(i);
-                 value1 = rec.optString("temperature");
-                 value2 = rec.optString("timestamp");
+                 temperature = rec.optString("temperature");
+                 timestamp = rec.optString("timestamp");
 
             }
-            return "Temperature: "+ value1 + " Timestamp: "+value2;
+            return "Temperature: "+ temperature + " Timestamp: "+timestamp;
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }

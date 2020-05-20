@@ -13,7 +13,6 @@ public class Server {
     public  static String  getMsg() throws MalformedURLException {
         String res,msg,temp,time;
         URL u = new URL("https://mdna.azurewebsites.net/api/GetDataFromTableStorage?limitRows=1&orderBy=desc");
-
         try (InputStream in = u.openStream()) {
             Object obj = new String(in.readAllBytes());
             msg = obj.toString();
